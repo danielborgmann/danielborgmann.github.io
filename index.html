@@ -1,135 +1,281 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="en">
-	<head>
-		<title>Zenity</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	</head>
-	<body class="is-preload">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zenity - Daniel Borgmann, gameplay and multiplayer programmer</title>
+<meta name="description" content="Gameplay and multiplayer programmer. 100-player battle royale netcode, server-authoritative systems, Unreal and Godot, shipped titles since 2012.">
+<meta property="og:title" content="Daniel Borgmann - gameplay and multiplayer programmer">
+<meta property="og:description" content="100-player battle royale netcode, server-authoritative systems, shipped titles since 2012.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#080a0e; --bg2:#0d1118; --line:#1d2531; --line2:#2a3542;
+  --fg:#e8edf4; --dim:#98a3b3; --dim2:#6b7788;
+  --accent:#35d4ff; --accent2:#0e7f9c;
+  --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg); color:var(--fg);
+  font-family:Inter,-apple-system,"Segoe UI",Roboto,sans-serif;
+  font-size:17px; line-height:1.62; -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+h1,h2,h3{font-family:Anton,Impact,sans-serif;font-weight:400;letter-spacing:.02em;line-height:1.05}
 
-		<!-- Header -->
-			<header id="header">
-				<nav>
-					<ul>
-						<li><a href="#intro">Intro</a></li>
-						<li><a href="#about">About Me</a></li>
-						<li><a href="#work">My Work</a></li>
-						<li><a href="#contact">Contact</a></li>
-					</ul>
-				</nav>
-			</header>
+/* ---------- nav ---------- */
+nav{position:sticky;top:0;z-index:20;background:rgba(8,10,14,.86);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;gap:26px;height:58px}
+nav .me{font-family:Anton,sans-serif;font-size:19px;letter-spacing:.06em;color:var(--fg)}
+nav .me span{color:var(--accent)}
+nav .links{margin-left:auto;display:flex;gap:22px;font-size:14.5px}
+nav .links a{color:var(--dim)}
+nav .links a:hover{color:var(--fg);text-decoration:none}
+@media(max-width:720px){nav .links a.opt{display:none}}
 
-		<!-- Intro -->
-			<section id="intro" class="main style1 dark fullscreen">
-				<div class="content">
-					<header>
-						<h2>Hello! I'm Daniel.</h2>
-					</header>
-					<p>I build games & apps for human beings.</p>
-					<p>This portfolio is a work in progress, but please feel
-						free to <a href="#contact">contact</a> me if you'd like to learn more.</p>
-					<footer>
-						<a href="#about" class="button style2 down">More</a>
-					</footer>
-				</div>
-			</section>
+/* ---------- hero ---------- */
+header.hero{padding:72px 0 46px;border-bottom:1px solid var(--line)}
+.kicker{font-family:var(--mono);font-size:13px;letter-spacing:.18em;text-transform:uppercase;
+        color:var(--accent);margin-bottom:20px}
+h1{font-size:clamp(42px,7vw,76px)}
+h1 em{font-style:normal;color:var(--accent)}
+.sub{margin-top:22px;font-size:clamp(18px,2.3vw,22px);color:var(--dim);max-width:60ch;line-height:1.5}
+.cta{margin-top:32px;display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-block;padding:12px 22px;border-radius:7px;font-size:15px;font-weight:600;
+     border:1px solid var(--line2);color:var(--fg)}
+.btn:hover{border-color:var(--accent);text-decoration:none}
+.btn.pri{background:var(--accent);color:#04222c;border-color:var(--accent)}
+.btn.pri:hover{background:#63e0ff}
 
-		<!-- About -->
-			<section id="about" class="main style2 right dark fullscreen">
-				<div class="content box style2">
-					<header>
-						<h2>About Me</h2>
-					</header>
-					<p>Ever since I taught myself programming in the early nineties, I've been passionate about learning
-					new ways to build inspiring user experiences.</p>
-					<p>I am comfortable anywhere from the backend to frontend design, but most recently have been focused
-						on <strong>Unreal Engine 4</strong> and <strong>Flutter</strong>.</p>
-				</div>
-				<a href="#work" class="button style2 down anchored">Next</a>
-			</section>
+/* ---------- reel ---------- */
+.reel{padding:46px 0 10px}
+.reel video{width:100%;display:block;border-radius:10px;border:1px solid var(--line2);background:#000}
+.reel .cap{margin-top:12px;font-family:var(--mono);font-size:13px;color:var(--dim2)}
 
-		<!-- Work -->
-			<section id="work" class="main style3 dark primary">
-				<div class="content">
-					<header>
-						<h2>My Work</h2>
-					</header>
+/* ---------- sections ---------- */
+section{padding:62px 0;border-bottom:1px solid var(--line)}
+h2{font-size:clamp(26px,3.4vw,36px);margin-bottom:10px}
+.lede{color:var(--dim);max-width:70ch;margin-bottom:34px}
 
-					<!-- Gallery  -->
-						<div class="gallery">
-							<article class="from-left">
-								<a href="images/fulls/01.jpg" class="image fit"><img src="images/thumbs/01.jpg" title="Vel Venenatis Cep" alt="" /></a>
-							</article>
-							<article class="from-right">
-								<a href="images/fulls/02.jpg" class="image fit"><img src="images/thumbs/02.jpg" title="Pellentesque at" alt="" /></a>
-							</article>
-							<article class="from-left">
-								<a href="images/fulls/03.jpg" class="image fit"><img src="images/thumbs/03.jpg" title="Cep Aenean" alt="" /></a>
-							</article>
-							<article class="from-right">
-								<a href="images/fulls/04.jpg" class="image fit"><img src="images/thumbs/04.jpg" title="Augue ut" alt="" /></a>
-							</article>
-							<article class="from-left">
-								<a href="images/fulls/05.jpg" class="image fit"><img src="images/thumbs/05.jpg" title="Sit porttitor magna" alt="" /></a>
-							</article>
-							<article class="from-right">
-								<a href="images/fulls/06.jpg" class="image fit"><img src="images/thumbs/06.jpg" title="Nibh ut" alt="" /></a>
-							</article>
-						</div>
+/* ---------- work ---------- */
+.work{display:grid;gap:18px}
+.card{border:1px solid var(--line);border-radius:10px;padding:24px 26px;background:var(--bg2)}
+.card .top{display:flex;flex-wrap:wrap;align-items:baseline;gap:12px;margin-bottom:4px}
+.card h3{font-size:24px}
+.card .yr{margin-left:auto;font-family:var(--mono);font-size:13px;color:var(--dim2);white-space:nowrap}
+.card .role{font-size:14.5px;color:var(--accent);font-weight:600}
+.card p{margin-top:12px;color:var(--dim);font-size:16px}
+.tags{margin-top:15px;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--mono);font-size:12px;color:var(--dim);border:1px solid var(--line2);
+     border-radius:99px;padding:3px 11px}
 
-				</div>
-			</section>
+/* ---------- netcode list ---------- */
+.net{display:grid;gap:0;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.net .r{display:grid;grid-template-columns:184px 1fr;gap:22px;padding:19px 26px;border-top:1px solid var(--line)}
+.net .r:first-child{border-top:0}
+.net .k{font-family:var(--mono);font-size:13.5px;color:var(--accent);padding-top:3px}
+.net .v{color:var(--dim);font-size:16px}
+.net .v b{color:var(--fg);font-weight:600}
+@media(max-width:700px){.net .r{grid-template-columns:1fr;gap:5px}}
 
-		<!-- Contact -->
-			<section id="contact" class="main style3 secondary">
-				<div class="content">
-					<header>
-						<h2>Say Hello.</h2>
-						<p>Let's talk about your project and how I can help make it shine!</p>
-					</header>
-					<div class="box">
-						<form method="post" action="https://formspree.io/mlebqpvd">
-							<div class="fields">
-								<div class="field half"><input type="text" name="name" placeholder="Name" /></div>
-								<div class="field half"><input type="email" name="_replyto" placeholder="Email" /></div>
-								<div class="field"><textarea name="message" placeholder="Message" rows="6"></textarea></div>
-							</div>
-							<ul class="actions special">
-								<li><input type="submit" value="Send Message" /></li>
-							</ul>
-						</form>
-					</div>
-				</div>
-			</section>
+/* ---------- stack ---------- */
+.stack{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
+.stack .b{border:1px solid var(--line);border-radius:10px;padding:20px 22px;background:var(--bg2)}
+.stack .b h4{font-family:var(--mono);font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;
+             color:var(--accent);margin-bottom:9px;font-weight:500}
+.stack .b p{color:var(--dim);font-size:15.5px}
 
-		<!-- Footer -->
-			<footer id="footer">
+/* ---------- contact ---------- */
+.contact{padding:66px 0 84px;border-bottom:0}
+.contact h2{margin-bottom:18px}
+.rows{margin-top:26px;display:grid;gap:11px;font-family:var(--mono);font-size:16px}
+.rows div{display:grid;grid-template-columns:104px 1fr;gap:14px}
+.rows .k{color:var(--dim2)}
+footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--dim2);font-size:13.5px}
+</style>
+</head>
+<body>
 
-				<!-- Icons -->
-					<ul class="icons">
-						<li><a href="https://twitter.com/Zenity07" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-						<li><a href="https://www.linkedin.com/in/daniel-borgmann/" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
-						<li><a href="https://github.com/danielborgmann" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
-					</ul>
+<nav><div class="wrap">
+  <div class="me">ZEN<span>ITY</span></div>
+  <div class="links">
+    <a href="#reel">reel</a>
+    <a href="#work">work</a>
+    <a href="#multiplayer" class="opt">multiplayer</a>
+    <a href="#how" class="opt">how i work</a>
+    <a href="cv.html">cv</a>
+    <a href="#contact">contact</a>
+  </div>
+</div></nav>
 
-				<!-- Menu -->
-					<ul class="menu">
-						<li>&copy; Zenity.dev</li>
-					</ul>
+<header class="hero"><div class="wrap">
+  <div class="kicker">Daniel Borgmann &nbsp;/&nbsp; Zenity</div>
+  <h1>I build the systems<br>games <em>run on</em>.</h1>
+  <p class="sub">Gameplay and multiplayer programmer, self-employed since 2012. Shipped a
+     100-player battle royale, a rhythm FPS and a stack of smaller titles. Deep in netcode,
+     server-authoritative state and the unglamorous parts that decide whether a game holds
+     together at scale.</p>
+  <div class="cta">
+    <a class="btn pri" href="#contact">Work with me</a>
+    <a class="btn" href="cv.html">CV</a>
+    <a class="btn" href="https://github.com/danielborgmann">GitHub</a>
+  </div>
+</div></header>
 
-			</footer>
+<section class="reel" id="reel"><div class="wrap">
+  <video controls preload="none" poster="reel-poster.jpg" playsinline>
+    <source src="reel.mp4" type="video/mp4">
+  </video>
+  <p class="cap">74 seconds. Fearless Fantasy, Islands of Nyne, Gun Jam, Rocket Rhythm.</p>
+</div></section>
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.poptrox.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+<section id="work"><div class="wrap">
+  <h2>Selected work</h2>
+  <p class="lede">Fourteen years of it, mostly as the programmer a small team leans on. The
+     through-line is systems that have to be correct under load, not features that demo well.</p>
 
-	</body>
+  <div class="work">
+
+    <div class="card">
+      <div class="top">
+        <h3>Islands of Nyne: Battle Royale</h3>
+        <div class="yr">2016 - 2019 &nbsp;/&nbsp; Define Human Studios</div>
+      </div>
+      <div class="role">Lead Gameplay Programmer</div>
+      <p>A 100-player battle royale on Unreal Engine 4. Joined a remote team as a UI developer,
+         moved into gameplay, and took over as lead gameplay programmer when the previous lead
+         left. Refined the core shooting mechanics and the network prediction code; players
+         consistently singled out the responsiveness and the netcode. Designed and built a
+         ranking system for battle royale, backend and UI.</p>
+      <div class="tags"><span class="tag">UE4</span><span class="tag">C++</span>
+        <span class="tag">100 players</span><span class="tag">client prediction</span>
+        <span class="tag">backend</span></div>
+    </div>
+
+    <div class="card">
+      <div class="top">
+        <h3>Unannounced extraction shooter</h3>
+        <div class="yr">2024 - 2026 &nbsp;/&nbsp; under NDA</div>
+      </div>
+      <div class="role">Sole Programmer</div>
+      <p>Multiplayer extraction shooter in Unreal Engine 5, taken toward a playable vertical
+         slice by a three-person team: client, dedicated server and backend, with gameplay
+         written almost entirely in C++. Built a multiplayer grid inventory with rotation,
+         stacking and splitting that is instant on the client and fully server authoritative,
+         replicated as item IDs and icon descriptors rather than whole objects to keep the
+         bandwidth down. Character controller, weapon handling and feel over a motion matching
+         animation system.</p>
+      <div class="tags"><span class="tag">UE5</span><span class="tag">C++</span>
+        <span class="tag">dedicated server</span><span class="tag">server authority</span>
+        <span class="tag">replication budget</span></div>
+    </div>
+
+    <div class="card">
+      <div class="top">
+        <h3>Gun Jam</h3>
+        <div class="yr">2020 - 2023 &nbsp;/&nbsp; Jaw Drop Games, pub. Raw Fury</div>
+      </div>
+      <div class="role">Lead Developer</div>
+      <p>A rhythm FPS. Wrote all the game logic, the player controller and a run of prototypes.
+         The interesting problem was time: keeping gameplay locked to the music while correcting
+         audio desynchronisation invisibly. Wrote the tempo estimation and onset detection that
+         let players import their own tracks, and the tooling that turns a song into a beatmap,
+         including a trainer that learns from how the player actually plays.</p>
+      <div class="tags"><span class="tag">UE4</span><span class="tag">C++</span>
+        <span class="tag">audio DSP</span><span class="tag">designer tooling</span></div>
+    </div>
+
+    <div class="card">
+      <div class="top">
+        <h3>Rocket Rhythm</h3>
+        <div class="yr">2026 - now &nbsp;/&nbsp; solo</div>
+      </div>
+      <div class="role">Designer / Programmer</div>
+      <p>A rhythm-action arcade shooter in Godot 4.6, solo: GDScript over a custom C++
+         GDExtension for the hot paths. Around 900 commits since April. Alongside it,
+         <b>RhythmShock</b>, shipped on Wavedash, and <b>Hard Rock Hero</b>, in development.
+         All three share a Godot engine module I wrote in C++ for spectral analysis: FFT,
+         onset detection and BPM.</p>
+      <div class="tags"><span class="tag">Godot 4</span><span class="tag">C++ GDExtension</span>
+        <span class="tag">engine module</span><span class="tag">shipped</span></div>
+    </div>
+
+  </div>
+</div></section>
+
+<section id="multiplayer"><div class="wrap">
+  <h2>Multiplayer, specifically</h2>
+  <p class="lede">Networking is the part of this job I keep coming back to, and it started a
+     long time before it was a job.</p>
+  <div class="net">
+    <div class="r"><div class="k">100 players, live</div>
+      <div class="v">Lead gameplay programmer on <b>Islands of Nyne</b>, a 100-player battle
+        royale that shipped and ran. Shooting mechanics and network prediction, on a map
+        players moved through constantly.</div></div>
+    <div class="r"><div class="k">Server authority</div>
+      <div class="v">A full extraction-shooter slice in UE5 as sole programmer: client,
+        dedicated server, backend. Inventory that feels instant locally and is still the
+        server's decision.</div></div>
+    <div class="r"><div class="k">Bandwidth</div>
+      <div class="v">Designing what actually goes on the wire. That grid inventory replicates
+        <b>IDs and icon descriptors, not objects</b>, because the naive version does not survive
+        a full server.</div></div>
+    <div class="r"><div class="k">From scratch</div>
+      <div class="v">Wrote a latency-normalised netcode model in a custom C++ and Direct3D 11
+        testbed: fixed 100 Hz tick, commands and snapshots carrying tick IDs, the server
+        simulating tick N from inputs of tick N-10 so every client feels the same delay
+        regardless of ping, with extrapolation when a command is missing.</div></div>
+    <div class="r"><div class="k">2003</div>
+      <div class="v">First public implementation of <b>server-side reconciliation</b> netcode
+        for Unreal Tournament. Same problem, twenty years earlier.</div></div>
+  </div>
+</div></section>
+
+<section id="how"><div class="wrap">
+  <h2>How I work</h2>
+  <p class="lede">Small teams, clear scope, and a rate of output that surprises people. I am
+     usually the whole programming side of a project.</p>
+  <div class="stack">
+    <div class="b"><h4>Architect, then delegate</h4>
+      <p>I design the system, break it into tasks, and use AI agents to build most of it while
+         I review, stress test and integrate. The judgement about what to build and how it
+         should be shaped stays mine, and so does the accountability when it goes wrong.</p></div>
+    <div class="b"><h4>Simple beats clever</h4>
+      <p>The system that survives contact with a live server is usually the boring one. I would
+         rather ship something legible that holds up than something elegant that nobody else
+         can change.</p></div>
+    <div class="b"><h4>Engine-agnostic</h4>
+      <p>Shipped on Unreal 4 and 5, shipping on Godot, extensive Unity experience, and three
+         engines written from scratch. Picking up an unfamiliar codebase is the normal case,
+         not the risk.</p></div>
+    <div class="b"><h4>I build my own tools</h4>
+      <p>Beatmap editors, a capture archive, a 3D modeller, project mission control, a Discord
+         agent that runs a tournament community on its own. If the tool that would make the work
+         faster does not exist, I write it.</p></div>
+  </div>
+</div></section>
+
+<section class="contact" id="contact"><div class="wrap">
+  <h2>Let's make something</h2>
+  <p class="lede">Contract work, remote, anywhere. Based in Jakarta, used to working across
+     time zones with people I have never met in person.</p>
+  <div class="rows">
+    <div><span class="k">email</span><a href="mailto:daniel.borgmann@gmail.com">daniel.borgmann@gmail.com</a></div>
+    <div><span class="k">discord</span><span>_zenity</span></div>
+    <div><span class="k">github</span><a href="https://github.com/danielborgmann">github.com/danielborgmann</a></div>
+    <div><span class="k">cv</span><a href="cv.html">full CV</a> &nbsp;/&nbsp; <a href="Daniel_Borgmann_Resume.pdf">PDF</a></div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">Daniel Borgmann, working as Zenity. Jakarta.</div></footer>
+
+</body>
 </html>
